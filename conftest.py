@@ -1,35 +1,38 @@
-
-# conftest.py
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 
-TEST_PAGE_URL = 'https://www.demoblaze.com/'
-
-@pytest.fixture(scope="session")
-def page_url():
-    """Provides the URL for the test page."""
-    return TEST_PAGE_URL
+TEST_PAGE_URL = "https://www.demoblaze.com/"
 
 @pytest.fixture(scope="session")
 def driver():
+    """Headless Chrome WebDriver"""
     print("\n--- Starting Chrome WebDriver ---")
-    
-    options = webdriver.ChromeOptions()
-    # options.add_argument("--headless=new")  # safer for macOS
-    
-    _driver = webdriver.Chrome(options=options)  
-    _driver.maximize_window()
-    _driver.implicitly_wait(5)
 
-    yield _driver
+    options = Options()
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+
+    # WebDriver manager downloads Chromedriver automatically
+    driver = webdriver.Chrome(
+        service=Service(ChromeDriverManager().install()),
+        options=options
+    )
+
+    driver.implicitly_wait(5)
+    yield driver
     print("--- Quitting Chrome WebDriver ---")
-    _driver.quit()
-
+    driver.quit()
 
 @pytest.fixture(scope="function")
 def wait(driver):
-    """Provides a WebDriverWait instance for explicit waits."""
-    return WebDriverWait(driver, 10) # 10-second timeout for explicit waits
+    """Explicit wait helper."""
+    return WebDriverWait(driver, 10)
+
+@pytest.fixture(scope="session")
+def page_url():
+    return TEST_PAGE_URL
