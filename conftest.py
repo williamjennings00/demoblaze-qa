@@ -9,7 +9,7 @@ TEST_PAGE_URL = "https://www.demoblaze.com/"
 
 @pytest.fixture(scope="session")
 def driver():
-    """Headless Chrome WebDriver"""
+   
     print("\n--- Starting Chrome WebDriver ---")
 
     options = Options()
