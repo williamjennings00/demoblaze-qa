@@ -35,3 +35,25 @@ def test_phone_category_render_correctly(driver):
     except StaleElementReferenceException:
         print("Stale element reference exception encountered...")
 
+def test_laptop_category_render_correctly(driver):
+    # List of phones to compare against
+    list_of_laptops = [
+        "Sony vaio i5", "Sony vaio i7", "MacBook air", "Dell i7 8gb", "2017 Dell 15.6 Inch", "MacBook Pro"
+    ]
+    
+    home = HomePage(driver)
+    home.driver.get("https://www.demoblaze.com/")
+    
+    home.select_category("Laptops")
+    
+    home.wait_for_elements(home.LAPTOP_ITEMS,6)
+    items = home.get_laptop_items()
+    items.sort()
+    list_of_laptops.sort()
+    try:
+        assert items == list_of_laptops, f"Lists do not match: {items} != {list_of_laptops}"
+
+        print("Success: Laptop items match expected list.")
+
+    except StaleElementReferenceException:
+        print("Stale element reference exception encountered...")

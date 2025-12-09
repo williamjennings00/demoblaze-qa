@@ -6,12 +6,17 @@ class HomePage(BasePage):
     CATEGORY_ITEMS = (By.CSS_SELECTOR, "a.list-group-item")
     NAV_BAR = (By.ID, "nava")
     PHONE_ITEMS = (By.CLASS_NAME, "hrefch")
-    
+    LAPTOP_ITEMS = (By.CLASS_NAME, "hrefch")
+
     def get_phone_items(self):
         
         items = self.find_elements(self.PHONE_ITEMS)
         return [element.text for element in items]
 
+    def get_laptop_items(self):
+        items = self.find_elements(self.LAPTOP_ITEMS)
+        return [element.text for element in items]
+    
     def select_category(self, category_name: str):
         items = self.find_elements(self.CATEGORY_ITEMS)
 
