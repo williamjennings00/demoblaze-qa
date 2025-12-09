@@ -36,7 +36,7 @@ def test_phone_category_render_correctly(driver):
         print("Stale element reference exception encountered...")
 
 def test_laptop_category_render_correctly(driver):
-    # List of phones to compare against
+    # List of laptops to compare against
     list_of_laptops = [
         "Sony vaio i5", "Sony vaio i7", "MacBook air", "Dell i7 8gb", "2017 Dell 15.6 Inch", "MacBook Pro"
     ]
