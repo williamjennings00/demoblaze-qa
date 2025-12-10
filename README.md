@@ -7,3 +7,17 @@ A clean UI automation project built with **Python, Selenium, Pytest**, and **Pag
 - Clean page objects and reliable locators  
 - Reusable waits, fixtures, and utilities  
 - Functional, regression, and basic integration tests
+
+## Setup
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run tests:
+
+```bash
+pytest
+```
