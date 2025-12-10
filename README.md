@@ -10,6 +10,8 @@ A clean UI automation project built with **Python, Selenium, Pytest**, and **Pag
 
 ## Setup
 
+
+
 Install dependencies:
 
 ```bash
@@ -20,4 +22,11 @@ Run tests:
 
 ```bash
 pytest
+```
+
+Install allure (Optional for visual results)
+
+```bash
+pytest --alluredir=allure-results
+allure serve allure-results
 ```
