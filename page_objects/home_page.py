@@ -46,3 +46,9 @@ class HomePage(BasePage):
         self.select_category("laptops")
         self.wait_for_elements(self.LAPTOP_ITEMS, 6)
         self.select_item(laptop_name)
+
+    def navigate_to_phone(self, phone_name):
+        self.driver.get("https://www.demoblaze.com/")
+        self.select_category("Phones")
+        self.wait_for_elements(self.PHONE_ITEMS, 7)
+        self.select_item(phone_name)
