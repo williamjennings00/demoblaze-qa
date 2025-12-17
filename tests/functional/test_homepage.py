@@ -5,6 +5,9 @@ from page_objects.home_page import HomePage
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
 import time 
+
+
+
 def test_home_page_loads(driver):
     home = HomePage(driver)
     home.driver.get("https://www.demoblaze.com/")
@@ -182,6 +185,7 @@ def test_phones_product_price_on_item_details_page(driver):
         )
 
 
+
 def test_laptops_product_price_on_item_details_page(driver):
 
     list_of_laptops = [
@@ -192,15 +196,12 @@ def test_laptops_product_price_on_item_details_page(driver):
         "$700 *includes tax", "$700 *includes tax", "$1100 *includes tax",
     ]
 
-
     home = HomePage(driver)
     for x in range(0,len(list_of_laptops)):
-        home.driver.get("https://www.demoblaze.com/")
-        home.select_category("laptops")
-        home.wait_for_elements(home.LAPTOP_ITEMS,len(list_of_laptops))
-        home.select_item(list_of_laptops[x])
+        home.navigate_to_laptop(list_of_laptops[x])
         product_price = home.get_product_price_on_info_page()
         assert list_of_prices[x] == product_price, (
             f"[ASSERTION FAILED] Expected '{list_of_prices[x]}' "
             f"but got '{product_price}' at index {x}"
         )
+

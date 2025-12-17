@@ -40,3 +40,9 @@ class HomePage(BasePage):
     def select_item(self, item_name):
         item = self.driver.find_element(By.LINK_TEXT, item_name)
         item.click()
+
+    def navigate_to_laptop(self, laptop_name):
+        self.driver.get("https://www.demoblaze.com/")
+        self.select_category("laptops")
+        self.wait_for_elements(self.LAPTOP_ITEMS, 6)
+        self.select_item(laptop_name)
