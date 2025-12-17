@@ -25,6 +25,9 @@ class BasePage:
 
     def find_elements(self, locator):
         return self.driver.find_elements(*locator)
+    
+    def find_element(self, locator):
+        return self.driver.find_element(*locator)
 
     def is_visible(self, locator):
         try:
