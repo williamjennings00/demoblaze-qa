@@ -145,7 +145,7 @@ def test_monitors_product_price_on_item_details_page(driver):
     for x in range(0,len(list_of_monitors)):
         home.driver.get("https://www.demoblaze.com/")
         home.select_category("Monitors")
-        home.wait_for_elements(home.PHONE_ITEMS,2)
+        home.wait_for_elements(home.MONITOR_ITEMS,2)
         home.select_item(list_of_monitors[x])
         product_price = home.get_product_price_on_info_page()
         assert list_of_prices[x] == product_price, (
@@ -153,3 +153,34 @@ def test_monitors_product_price_on_item_details_page(driver):
             f"but got '{product_price}' at index {x}"
         )
 
+def test_phones_product_price_on_item_details_page(driver):
+
+    list_of_phones = [
+        "Samsung galaxy s6", "Nokia lumia 1520", "Nexus 6", "Samsung galaxy s7", 
+        "Iphone 6 32gb", "Sony xperia z5", "HTC One M9"
+    ]
+    list_of_prices = [
+        "$360 *includes tax",
+        "$820 *includes tax",
+        "$650 *includes tax",
+        "$800 *includes tax",
+        "$790 *includes tax",
+        "$320 *includes tax",
+        "$700 *includes tax"
+    ]
+
+    home = HomePage(driver)
+    for x in range(0,len(list_of_phones)):
+        home.driver.get("https://www.demoblaze.com/")
+        home.select_category("Phones")
+        home.wait_for_elements(home.PHONE_ITEMS,len(list_of_phones))
+        home.select_item(list_of_phones[x])
+        product_price = home.get_product_price_on_info_page()
+        assert list_of_prices[x] == product_price, (
+            f"[ASSERTION FAILED] Expected '{list_of_prices[x]}' "
+            f"but got '{product_price}' at index {x}"
+        )
+list_of_prices = [
+        "$790 *includes tax", "$790 *includes tax", "$700 *includes tax", "$700 *includes tax"
+        , "$700 *includes tax", "$700 *includes tax","$1100 *includes tax",
+    ]
