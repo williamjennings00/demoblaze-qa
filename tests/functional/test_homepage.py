@@ -81,9 +81,6 @@ def test_monitor_category_render_correctly(driver):
     except StaleElementReferenceException:
         print("Stale element reference exception encountered...")
 
-
-
-
 def test_laptops_product_name_on_item_details_page(driver):
 
     list_of_laptops = [
@@ -98,5 +95,23 @@ def test_laptops_product_name_on_item_details_page(driver):
         product = home.get_product_name_on_info_page()
         assert list_of_laptops[x] == product, (
             f"[ASSERTION FAILED] Expected '{list_of_laptops[x]}' "
+            f"but got '{product}' at index {x}"
+        )
+
+def test_phone_product_name_on_item_details_page(driver):
+
+    list_of_phones = [
+        "Samsung galaxy s6", "Nokia lumia 1520", "Nexus 6", "Samsung galaxy s7", 
+        "Iphone 6 32gb", "Sony xperia z5", "HTC One M9"
+    ]
+    home = HomePage(driver)
+    for x in range(0,len(list_of_phones)):
+        home.driver.get("https://www.demoblaze.com/")
+        home.select_category("Phones")
+        home.wait_for_elements(home.PHONE_ITEMS,7)
+        home.select_item(list_of_phones[x])
+        product = home.get_product_name_on_info_page()
+        assert list_of_phones[x] == product, (
+            f"[ASSERTION FAILED] Expected '{list_of_phones[x]}' "
             f"but got '{product}' at index {x}"
         )
