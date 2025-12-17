@@ -31,3 +31,7 @@ class HomePage(BasePage):
     def is_loaded(self) -> bool:
         """Check if the main banner is visible."""
         return self.is_visible(self.NAV_BAR)
+    
+    def select_item(self, item_name):
+        item = self.driver.find_element(By.LINK_TEXT, item_name)
+        item.click()
