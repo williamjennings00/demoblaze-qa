@@ -132,3 +132,24 @@ def test_monitors_product_name_on_item_details_page(driver):
             f"[ASSERTION FAILED] Expected '{list_of_monitors[x]}' "
             f"but got '{product}' at index {x}"
         )
+
+def test_monitors_product_price_on_item_details_page(driver):
+
+    list_of_monitors = [
+        "Apple monitor 24", "ASUS Full HD"
+    ]
+    list_of_prices = [
+        "$400 *includes tax", "$230 *includes tax"
+    ]
+    home = HomePage(driver)
+    for x in range(0,len(list_of_monitors)):
+        home.driver.get("https://www.demoblaze.com/")
+        home.select_category("Monitors")
+        home.wait_for_elements(home.PHONE_ITEMS,2)
+        home.select_item(list_of_monitors[x])
+        product_price = home.get_product_price_on_info_page()
+        assert list_of_prices[x] == product_price, (
+            f"[ASSERTION FAILED] Expected '{list_of_prices[x]}' "
+            f"but got '{product_price}' at index {x}"
+        )
+

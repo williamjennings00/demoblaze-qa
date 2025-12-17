@@ -9,6 +9,7 @@ class HomePage(BasePage):
     LAPTOP_ITEMS = (By.CLASS_NAME, "hrefch")
     MONITOR_ITEMS = (By.CLASS_NAME, "hrefch")
     PRODUCT_NAME_INFO_PAGE = (By.CLASS_NAME, "name")
+    PRODUCT_PRICE_INFO_PAGE = (By.CLASS_NAME, "price-container")
 
     def get_category_items(self):
         items = self.find_elements(self.PHONE_ITEMS)
@@ -17,6 +18,10 @@ class HomePage(BasePage):
     def get_product_name_on_info_page(self):
         product_name = self.find_element(self.PRODUCT_NAME_INFO_PAGE)
         return product_name.text
+    
+    def get_product_price_on_info_page(self):
+        product_price = self.find_element(self.PRODUCT_PRICE_INFO_PAGE)
+        return product_price.text
     
     def select_category(self, category_name: str):
         items = self.find_elements(self.CATEGORY_ITEMS)
