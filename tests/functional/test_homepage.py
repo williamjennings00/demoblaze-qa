@@ -180,7 +180,27 @@ def test_phones_product_price_on_item_details_page(driver):
             f"[ASSERTION FAILED] Expected '{list_of_prices[x]}' "
             f"but got '{product_price}' at index {x}"
         )
-list_of_prices = [
-        "$790 *includes tax", "$790 *includes tax", "$700 *includes tax", "$700 *includes tax"
-        , "$700 *includes tax", "$700 *includes tax","$1100 *includes tax",
+
+
+def test_laptops_product_price_on_item_details_page(driver):
+
+    list_of_laptops = [
+        "Sony vaio i5", "Sony vaio i7", "MacBook air", "Dell i7 8gb", "2017 Dell 15.6 Inch", "MacBook Pro"
     ]
+    list_of_prices = [
+        "$790 *includes tax", "$790 *includes tax", "$700 *includes tax",
+        "$700 *includes tax", "$700 *includes tax", "$1100 *includes tax",
+    ]
+
+
+    home = HomePage(driver)
+    for x in range(0,len(list_of_laptops)):
+        home.driver.get("https://www.demoblaze.com/")
+        home.select_category("laptops")
+        home.wait_for_elements(home.LAPTOP_ITEMS,len(list_of_laptops))
+        home.select_item(list_of_laptops[x])
+        product_price = home.get_product_price_on_info_page()
+        assert list_of_prices[x] == product_price, (
+            f"[ASSERTION FAILED] Expected '{list_of_prices[x]}' "
+            f"but got '{product_price}' at index {x}"
+        )
