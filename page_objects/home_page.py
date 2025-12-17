@@ -52,3 +52,9 @@ class HomePage(BasePage):
         self.select_category("Phones")
         self.wait_for_elements(self.PHONE_ITEMS, 7)
         self.select_item(phone_name)
+        
+    def navigate_to_monitor(self, monitor_name):
+        self.driver.get("https://www.demoblaze.com/")
+        self.select_category("Monitors")
+        self.wait_for_elements(self.MONITOR_ITEMS, 2)
+        self.select_item(monitor_name)

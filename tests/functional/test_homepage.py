@@ -146,10 +146,7 @@ def test_monitors_product_price_on_item_details_page(driver):
     ]
     home = HomePage(driver)
     for x in range(0,len(list_of_monitors)):
-        home.driver.get("https://www.demoblaze.com/")
-        home.select_category("Monitors")
-        home.wait_for_elements(home.MONITOR_ITEMS,2)
-        home.select_item(list_of_monitors[x])
+        home.navigate_to_monitor(list_of_monitors[x])
         product_price = home.get_product_price_on_info_page()
         assert list_of_prices[x] == product_price, (
             f"[ASSERTION FAILED] Expected '{list_of_prices[x]}' "
