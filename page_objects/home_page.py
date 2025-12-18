@@ -8,11 +8,25 @@ class HomePage(BasePage):
     PHONE_ITEMS = (By.CLASS_NAME, "hrefch")
     LAPTOP_ITEMS = (By.CLASS_NAME, "hrefch")
     MONITOR_ITEMS = (By.CLASS_NAME, "hrefch")
-
+    PRODUCT_NAME_INFO_PAGE = (By.CLASS_NAME, "name")
+    PRODUCT_PRICE_INFO_PAGE = (By.CLASS_NAME, "price-container")
+    PRODUCT_DESCRIPTION_INFO_PAGE = (By.ID, "more-information")
+    
     def get_category_items(self):
         items = self.find_elements(self.PHONE_ITEMS)
         return [element.text for element in items]
     
+    def get_product_name_on_info_page(self):
+        product_name = self.find_element(self.PRODUCT_NAME_INFO_PAGE)
+        return product_name.text
+    
+    def get_product_price_on_info_page(self):
+        product_price = self.find_element(self.PRODUCT_PRICE_INFO_PAGE)
+        return product_price.text
+
+    def get_product_description_on_info_page(self):
+        product_description = self.find_element(self.PRODUCT_DESCRIPTION_INFO_PAGE)
+        return product_description.text
 
     def select_category(self, category_name: str):
         items = self.find_elements(self.CATEGORY_ITEMS)
@@ -27,3 +41,25 @@ class HomePage(BasePage):
     def is_loaded(self) -> bool:
         """Check if the main banner is visible."""
         return self.is_visible(self.NAV_BAR)
+    
+    def select_item(self, item_name):
+        item = self.driver.find_element(By.LINK_TEXT, item_name)
+        item.click()
+
+    def navigate_to_laptop(self, laptop_name):
+        self.driver.get("https://www.demoblaze.com/")
+        self.select_category("laptops")
+        self.wait_for_elements(self.LAPTOP_ITEMS, 6)
+        self.select_item(laptop_name)
+
+    def navigate_to_phone(self, phone_name):
+        self.driver.get("https://www.demoblaze.com/")
+        self.select_category("Phones")
+        self.wait_for_elements(self.PHONE_ITEMS, 7)
+        self.select_item(phone_name)
+        
+    def navigate_to_monitor(self, monitor_name):
+        self.driver.get("https://www.demoblaze.com/")
+        self.select_category("Monitors")
+        self.wait_for_elements(self.MONITOR_ITEMS, 2)
+        self.select_item(monitor_name)
