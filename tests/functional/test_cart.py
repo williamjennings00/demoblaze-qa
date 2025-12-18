@@ -42,3 +42,19 @@ def test_remove_product_from_cart(driver):
     cart.wait_for_element_invisibility(cart.CART_PRODUCT_TITLE)
     cart_product_title = cart.get_cart_item_titles()
     assert not any("Samsung galaxy s6" in title for title in cart_product_title)
+
+def test_cart_price_calculations(driver):
+    list_of_phones = [
+        "Samsung galaxy s6", "Nokia lumia 1520", "Nexus 6", "Samsung galaxy s7", 
+        "Iphone 6 32gb", "Sony xperia z5", "HTC One M9"
+    ]
+    cart = CartPage(driver)
+    for x in range(0,len(list_of_phones)):
+        cart.driver.get("https://www.demoblaze.com")
+        cart.goto_product_page(list_of_phones[x],driver)
+        cart.add_product_to_cart()
+    
+    cart.driver.get("https://www.demoblaze.com/cart.html")
+    cart.is_visible(cart.CART_TOTAL)
+    price_total = cart.get_price_total()
+    assert price_total == '4440'
