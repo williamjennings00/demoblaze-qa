@@ -58,3 +58,26 @@ def test_cart_price_calculations(driver):
     cart.is_visible(cart.CART_TOTAL)
     price_total = cart.get_price_total()
     assert price_total == '4440'
+
+def test_cart_persistence(driver):
+    cart = CartPage(driver)
+    cart.driver.get("https://www.demoblaze.com")
+
+    product_name = "Samsung galaxy s6"
+    cart.goto_product_page(product_name, driver)
+    cart.add_product_to_cart()
+
+    cart.driver.get("https://www.demoblaze.com")
+    
+    product_name2 = "Nokia lumia 1520"
+    cart.goto_product_page(product_name2, driver)
+    cart.add_product_to_cart()
+
+    cart.driver.get("https://www.demoblaze.com/cart.html")
+
+    cart_product_titles = cart.get_cart_item_titles()
+    cart.is_visible(cart.CART_TOTAL) # used to make sure that cart has fully loaded. 
+    assert any("Samsung galaxy s6" in title for title in cart_product_titles), "Samsung galaxy s6 is not in the cart"
+    assert any("Nokia lumia 1520" in title for title in cart_product_titles), "Nokia lumia 1520 is not in the cart"
+
+    print("Cart persistence test passed. Products are still in the cart.")
