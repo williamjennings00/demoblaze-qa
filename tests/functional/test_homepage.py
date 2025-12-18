@@ -251,3 +251,26 @@ def test_phones_product_description_on_item_details_page(driver):
             f"[ASSERTION FAILED] Expected '{expected}' "
             f"but got '{actual}' at index {x}"
         )
+
+def test_monitors_product_description_on_item_details_page(driver):
+    list_of_monitors = [
+        "Apple monitor 24", "ASUS Full HD"
+    ]
+    
+    monitor_descriptions = [
+        "Product description LED Cinema Display features a 27-inch glossy LED-backlit TFT active-matrix LCD display with IPS technology and an optimum resolution of 2560x1440. It has a 178 degree horizontal and vertical viewing angle, a \"typical\" brightness of 375 cd/m2, contrast ratio of 1000:1, and a 12 ms response time.",
+        "Product description ASUS VS247H-P 23.6- Inch Full HD"
+    ]
+    home = HomePage(driver)
+    
+    for x in range(len(list_of_monitors)):
+        home.navigate_to_monitor(list_of_monitors[x])
+        product_description = home.get_product_description_on_info_page()
+        
+        expected = normalize_text(monitor_descriptions[x])
+        actual = normalize_text(product_description)
+        
+        assert expected == actual, (
+            f"[ASSERTION FAILED] Expected '{expected}' "
+            f"but got '{actual}' at index {x}"
+        )
