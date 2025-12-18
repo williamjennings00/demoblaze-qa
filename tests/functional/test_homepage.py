@@ -91,10 +91,7 @@ def test_laptops_product_name_on_item_details_page(driver):
     ]
     home = HomePage(driver)
     for x in range(0,len(list_of_laptops)):
-        home.driver.get("https://www.demoblaze.com/")
-        home.select_category("Laptops")
-        home.wait_for_elements(home.LAPTOP_ITEMS,6)
-        home.select_item(list_of_laptops[x])
+        home.navigate_to_laptop(list_of_laptops[x])
         product = home.get_product_name_on_info_page()
         assert list_of_laptops[x] == product, (
             f"[ASSERTION FAILED] Expected '{list_of_laptops[x]}' "
@@ -109,10 +106,7 @@ def test_phone_product_name_on_item_details_page(driver):
     ]
     home = HomePage(driver)
     for x in range(0,len(list_of_phones)):
-        home.driver.get("https://www.demoblaze.com/")
-        home.select_category("Phones")
-        home.wait_for_elements(home.PHONE_ITEMS,7)
-        home.select_item(list_of_phones[x])
+        home.navigate_to_phone(list_of_phones[x])
         product = home.get_product_name_on_info_page()
         assert list_of_phones[x] == product, (
             f"[ASSERTION FAILED] Expected '{list_of_phones[x]}' "
@@ -126,10 +120,7 @@ def test_monitors_product_name_on_item_details_page(driver):
     ]
     home = HomePage(driver)
     for x in range(0,len(list_of_monitors)):
-        home.driver.get("https://www.demoblaze.com/")
-        home.select_category("Monitors")
-        home.wait_for_elements(home.PHONE_ITEMS,2)
-        home.select_item(list_of_monitors[x])
+        home.navigate_to_monitor(list_of_monitors[x])
         product = home.get_product_name_on_info_page()
         assert list_of_monitors[x] == product, (
             f"[ASSERTION FAILED] Expected '{list_of_monitors[x]}' "
