@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from .base_page import BasePage
-
+from .home_page import HomePage
 
 class CartPage(BasePage):
 
@@ -14,3 +14,8 @@ class CartPage(BasePage):
     def get_cart_item_titles(self):
         cart_titles = self.find_elements(self.CART_PRODUCT_TITLE)
         return [title.text for title in cart_titles]
+
+    def goto_product_page(self, product,driver):
+        home = HomePage(driver)
+        self.driver.get("https://www.demoblaze.com/")
+        home.navigate_to_phone(product)
