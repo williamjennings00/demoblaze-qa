@@ -39,10 +39,6 @@ def test_remove_product_from_cart(driver):
     cart.add_product_to_cart()
     cart.driver.get("https://www.demoblaze.com/cart.html")
     cart.remove_product_from_cart()
-    while(True):
-        if not cart.is_visible(cart.CART_PRODUCT_TITLE):
-            cart_product_title = cart.get_cart_item_titles()
-            break
-        else:
-            continue
+    cart.wait_for_element_invisibility(cart.CART_PRODUCT_TITLE)
+    cart_product_title = cart.get_cart_item_titles()
     assert not any("Samsung galaxy s6" in title for title in cart_product_title)
