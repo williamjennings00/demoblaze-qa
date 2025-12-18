@@ -33,3 +33,16 @@ def test_add_multiple_products_to_cart(driver):
     for phone in list_of_phones:
         assert any(phone in title for title in cart_product_title), f"'{phone}' not found in cart"
 
+def test_remove_product_from_cart(driver):
+    cart = CartPage(driver)
+    cart.goto_product_page("Samsung galaxy s6",driver)
+    cart.add_product_to_cart()
+    cart.driver.get("https://www.demoblaze.com/cart.html")
+    cart.remove_product_from_cart()
+    while(True):
+        if not cart.is_visible(cart.CART_PRODUCT_TITLE):
+            cart_product_title = cart.get_cart_item_titles()
+            break
+        else:
+            continue
+    assert not any("Samsung galaxy s6" in title for title in cart_product_title)

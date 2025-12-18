@@ -6,6 +6,7 @@ class CartPage(BasePage):
 
     ADD_TO_CART = (By.CSS_SELECTOR, "a.btn.btn-success.btn-lg")
     CART_PRODUCT_TITLE = (By.XPATH, "//tr[contains(@class,'success')]")
+    REMOVE_BUTTON = (By.CSS_SELECTOR, "tr.success td:nth-child(4) a")
 
     def add_product_to_cart(self):
         add_button = self.find_element(self.ADD_TO_CART)
@@ -19,3 +20,7 @@ class CartPage(BasePage):
         home = HomePage(driver)
         self.driver.get("https://www.demoblaze.com/")
         home.navigate_to_phone(product)
+
+    def remove_product_from_cart(self):
+        button = self.find_element(self.REMOVE_BUTTON)
+        button.click()
