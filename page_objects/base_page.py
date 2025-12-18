@@ -56,3 +56,17 @@ class BasePage:
             raise  
         except Exception as e:
             raise 
+    
+    def wait_for_element_invisibility(self, locator, timeout=10):
+        """
+        Wait for an element to become invisible.
+        
+        :param locator: The locator of the element (e.g., (By.XPATH, '...'))
+        :param timeout: The maximum time to wait for the element to be invisible (default is 10 seconds).
+        """
+        try:
+            self.wait.until(EC.invisibility_of_element_located(locator))
+        except TimeoutException:
+            print(f"Timed out waiting for {locator} to become invisible.")
+            return False
+        return True

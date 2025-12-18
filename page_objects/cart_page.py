@@ -1,0 +1,31 @@
+from selenium.webdriver.common.by import By
+from .base_page import BasePage
+from .home_page import HomePage
+
+class CartPage(BasePage):
+
+    ADD_TO_CART = (By.CSS_SELECTOR, "a.btn.btn-success.btn-lg")
+    CART_PRODUCT_TITLE = (By.XPATH, "//tr[contains(@class,'success')]")
+    REMOVE_BUTTON = (By.CSS_SELECTOR, "tr.success td:nth-child(4) a")
+    CART_TOTAL = (By.ID, "totalp")
+
+    def add_product_to_cart(self):
+        add_button = self.find_element(self.ADD_TO_CART)
+        add_button.click()
+
+    def get_cart_item_titles(self):
+        cart_titles = self.find_elements(self.CART_PRODUCT_TITLE)
+        return [title.text for title in cart_titles]
+
+    def goto_product_page(self, product,driver):
+        home = HomePage(driver)
+        self.driver.get("https://www.demoblaze.com/")
+        home.navigate_to_phone(product)
+
+    def remove_product_from_cart(self):
+        button = self.find_element(self.REMOVE_BUTTON)
+        button.click()
+
+    def get_price_total(self):
+        price_total = self.find_element(self.CART_TOTAL)
+        return price_total.text
