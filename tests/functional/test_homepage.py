@@ -223,3 +223,31 @@ def test_laptops_product_description_on_item_details_page(driver):
             f"[ASSERTION FAILED] Expected '{expected}' "
             f"but got '{actual}' at index {x}"
         )
+def test_phones_product_description_on_item_details_page(driver):
+    list_of_phones = [
+        "Samsung galaxy s6", "Nokia lumia 1520", "Nexus 6", "Samsung galaxy s7", 
+        "Iphone 6 32gb", "Sony xperia z5", "HTC One M9"
+    ]
+    
+    phone_descriptions = [
+        "Product description The Samsung Galaxy S6 is powered by 1.5GHz octa-core Samsung Exynos 7420 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage cannot be expanded.",
+        "Product description The Nokia Lumia 1520 is powered by 2.2GHz quad-core Qualcomm Snapdragon 800 processor and it comes with 2GB of RAM.",
+        "Product description The Motorola Google Nexus 6 is powered by 2.7GHz quad-core Qualcomm Snapdragon 805 processor and it comes with 3GB of RAM.",
+        "Product description The Samsung Galaxy S7 is powered by 1.6GHz octa-core it comes with 4GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 200GB via a microSD card.",
+        "Product description It comes with 1GB of RAM. The phone packs 16GB of internal storage cannot be expanded. As far as the cameras are concerned, the Apple iPhone 6 packs a 8-megapixel primary camera on the rear and a 1.2-megapixel front shooter for selfies.",
+        "Product description Sony Xperia Z5 Dual smartphone was launched in September 2015. The phone comes with a 5.20-inch touchscreen display with a resolution of 1080 pixels by 1920 pixels at a PPI of 424 pixels per inch.",
+        "Product description The HTC One M9 is powered by 1.5GHz octa-core Qualcomm Snapdragon 810 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 128GB via a microSD card."
+    ]
+    home = HomePage(driver)
+    
+    for x in range(len(list_of_phones)):
+        home.navigate_to_phone(list_of_phones[x])
+        product_description = home.get_product_description_on_info_page()
+        
+        expected = normalize_text(phone_descriptions[x])
+        actual = normalize_text(product_description)
+        
+        assert expected == actual, (
+            f"[ASSERTION FAILED] Expected '{expected}' "
+            f"but got '{actual}' at index {x}"
+        )
