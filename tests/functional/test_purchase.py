@@ -94,4 +94,22 @@ def test_submit_valid_form(driver):
 
 
 def test_required_fields_have_required_attribute(driver):
-    pass
+    cart = CartPage(driver)
+    purchase = PurchasePage(driver)
+    cart.driver.get("https://www.demoblaze.com")
+
+    product_name = "Samsung galaxy s6"
+    cart.goto_product_page(product_name, driver)
+    cart.add_product_to_cart()
+    cart.driver.get("https://www.demoblaze.com/cart.html")
+    purchase.place_order()
+    required_fields = [
+        purchase.NAME_FIELD,
+        purchase.CREDIT_CARD_FIELD,
+    ]
+    purchase.wait_for_element(purchase.NAME_FIELD)
+    for field in required_fields:
+        input = purchase.find_element(field)
+        input.send_keys("test")
+    purchase.purchase_order() 
+    assert purchase.check_if_pop_success_is_present()
