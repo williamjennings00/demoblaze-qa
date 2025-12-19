@@ -56,7 +56,15 @@ class BasePage:
             raise  
         except Exception as e:
             raise 
-    
+
+    def wait_for_element(self, locator, timeout=10):
+        try:
+            return WebDriverWait(self.driver, timeout).until(
+                EC.visibility_of_element_located(locator)
+            )
+        except TimeoutException:
+            raise TimeoutException(f"Element {locator} not visible after {timeout} seconds")
+
     def wait_for_element_invisibility(self, locator, timeout=10):
         """
         Wait for an element to become invisible.
