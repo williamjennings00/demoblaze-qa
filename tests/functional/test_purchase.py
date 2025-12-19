@@ -28,7 +28,6 @@ def test_purchase_modal_opens(driver):
 def test_purchase_form_fields_present(driver):
     cart = CartPage(driver)
     purchase = PurchasePage(driver)
-    purchase = PurchasePage(driver)
     cart.driver.get("https://www.demoblaze.com")
 
     product_name = "Samsung galaxy s6"
@@ -53,3 +52,4 @@ def test_purchase_form_fields_present(driver):
     print("All required fields are present in the purchase form.")
 
 
+def test_submit_empty_form(driver):
