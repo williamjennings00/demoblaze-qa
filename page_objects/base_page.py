@@ -70,3 +70,22 @@ class BasePage:
             print(f"Timed out waiting for {locator} to become invisible.")
             return False
         return True
+    
+    def wait_until_visible(self, locator, timeout=10):
+        """
+        Wait until an element is visible on the page.
+        :param locator: tuple (By.X, "value")
+        :param timeout: max wait time in seconds
+        :return: True if visible, False if timeout
+        """
+        print(f"Waiting for element to be visible: {locator}")
+        try:
+            WebDriverWait(self.driver, timeout).until(
+                EC.visibility_of_element_located(locator)
+            )
+            print(f"Element {locator} is now visible.")
+            return True
+        except Exception as e:
+            print(f"Element {locator} was not visible after {timeout} seconds.")
+            print(f"Error: {str(e)}")
+            return False
