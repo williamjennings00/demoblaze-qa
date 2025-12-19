@@ -12,6 +12,7 @@ class PurchasePage(BasePage):
     CREDIT_CARD_FIELD = (By.ID, "card")
     MONTH_FIELD = (By.ID, "month")
     YEAR_FIELD = (By.ID, "year")
+    PURCHASE_BUTTON = (By.XPATH, "//button[@onclick='purchaseOrder()']")
 
     def place_order(self):
         place_order_button = self.find_element(self.PLACE_ORDER_BUTTON)
@@ -20,4 +21,8 @@ class PurchasePage(BasePage):
     
     def check_if_modal_is_present(self):
         return self.wait_until_visible(self.PLACE_ORDER_CONTENT)
+    
+    def purchase_order(self):
+        purchase_button = self.find_element(self.PURCHASE_BUTTON)
+        purchase_button.click()
 

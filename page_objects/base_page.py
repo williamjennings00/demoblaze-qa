@@ -89,3 +89,7 @@ class BasePage:
             print(f"Element {locator} was not visible after {timeout} seconds.")
             print(f"Error: {str(e)}")
             return False
+    
+    def is_alert_present(self, timeout=10):
+        return WebDriverWait(self.driver, timeout).until(EC.alert_is_present())
+

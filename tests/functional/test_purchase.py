@@ -53,3 +53,16 @@ def test_purchase_form_fields_present(driver):
 
 
 def test_submit_empty_form(driver):
+    cart = CartPage(driver)
+    purchase = PurchasePage(driver)
+    cart.driver.get("https://www.demoblaze.com")
+
+    product_name = "Samsung galaxy s6"
+    cart.goto_product_page(product_name, driver)
+    cart.add_product_to_cart()
+    cart.driver.get("https://www.demoblaze.com/cart.html")
+
+    purchase.place_order()
+    purchase.purchase_order() 
+    purchase_alert = purchase.is_alert_present()
+    assert purchase_alert.text == "Please fill out Name and Creditcard."
